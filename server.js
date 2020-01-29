@@ -25,12 +25,12 @@ function runSearch() {
     .prompt({
       name: "action",
       type: "list",
-      message: "What would you like to do?",
+      message: "Welcome to employee tracker. What would you like to do?",
       choices: [
         "Add departments, roles, employees",
         "View departments, roles, employees",
         "Update employee roles",
-        "exit"
+        "Exit"
       ]
     })
     .then(function (answer) {
