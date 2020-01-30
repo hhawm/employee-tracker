@@ -1,5 +1,10 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+const cTable = require("console.table");
+
+// const out = require("./out");
+// const helper = require("./helper");
+// const query = require("./query");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -27,31 +32,46 @@ function runSearch() {
       type: "list",
       message: "Welcome to employee tracker. What would you like to do?",
       choices: [
-        "Add departments, roles, employees",
-        "View departments, roles, employees",
-        "Update employee roles",
-        "Exit"
+        "View All Departments",
+        "Add Department",
+        "View All Roles",
+        "Add Role",
+        "View All Employees by Department",
+        "Add an Employee",
+        // "View Department Budgets",
+        "Or Exit"
       ]
-    })
-    .then(function (answer) {
+    }).then(function (answer) {
       switch (answer.action) {
-        case "Find songs by artist":
-          artistSearch();
+        case "View All Departments":
+          viewDepts();
           break;
 
-        case "Find all artists who appear more than once":
-          multiSearch();
+        case "Add Department":
+          addDept();
           break;
 
-        case "Find data within a specific range":
-          rangeSearch();
+        case "View All Roles":
+          viewRoles();
           break;
 
-        case "Search for a specific song":
-          songSearch();
+        case "Add Role":
+          addRoles();
           break;
 
-        case "exit":
+        case "View All Employees by Department":
+          viewEmplByDept();
+          break;
+
+        case "Add an Employee":
+          addEmployee();
+          break;
+
+        // case "View Department Budgets":
+        //   viewDeptBudget();
+        //   break;
+
+        case "Or Exit":
           connection.end();
           break;
       }
