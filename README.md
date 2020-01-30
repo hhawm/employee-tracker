@@ -1,13 +1,26 @@
-# employee-tracker
+# Employee-Tracker
+## Description
 
-* Functional application.
+**C**ontent **M**anagement **S**ystem solution for managing a company's employees using node, inquirer, and MySQL. The command-line application should allow users to:
 
-* GitHub repository with a unique name and a README describing the project.
+    * View All Departments
+    * Add Department
+    * View All Roles
+    * Add Role
+    * View All Employees by Department
+    * Add an Employee
 
-* The command-line application should allow users to:
 
-  * Add departments, roles, employees
+## User Story
 
-  * View departments, roles, employees
+We can frame this challenge as follows:
 
-  * Update employee roles
+```
+As a business owner
+I want to be able to view and manage the departments, roles, and employees in my company
+So that I can organize and plan my business
+```
+
+## Screen Shot
+
+![Getting Started](notetaker_screenshot.png)
