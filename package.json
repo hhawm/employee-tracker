@@ -1,0 +1,26 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "**C**ontent **M**anagement **S**ystem solution for managing a company's employees using node, inquirer, and MySQL. The command-line application should allow users to:",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hhawm/employee-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hhawm/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/hhawm/employee-tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^7.0.4",
+    "mysql": "^2.18.1"
+  }
+}

@@ -1,3 +1,5 @@
+USE emp_trackerDB;
+
 -- Departments Table
 INSERT INTO department
     (name)
@@ -18,7 +20,7 @@ VALUES
     ("Accounting Manager", 90000, 3);
 
 -- Employees Table
-INSERT INTO Employee
+INSERT INTO employee
     (first_name, last_name, role_id, manager_id)
 VALUES
     ("Rosamond", "Leanna", 1, 7),
@@ -37,12 +39,8 @@ VALUES
     ("Colin", "Clancy", 5, 13),
     ("Kyrie", "Nicholas", 6, null);
 
-SELECT *
-FROM Employee;
+-- SELECT * FROM department;
 
+-- SELECT * FROM role;
 
-
-
-
-
--- SELECT * FROM top5000;
+-- SELECT * FROM employee;
