@@ -45,15 +45,12 @@ function runSearch() {
       case "Add Employee":
         addEmpl();
         break;
-      // case "Remove Employee":
-      //   removeEmpl();
-      //   break;
-      // case "Update Employee Role":
-      //   updateEmplRole();
-      //   break;
-      // case "Update Employee Manager":
-      //   updateEmplMan();
-      //   break;
+      case "Remove Employee":
+        removeEmpl();
+        break;
+      case "Update Employee Role":
+        updateEmplRole();
+        break;
       case "Or Exit":
         connection.end();
         break;
@@ -135,6 +132,7 @@ function viewAcctEmpl() {
   });
 }
 
+// Add employee
 function addEmpl() {
   inquirer.prompt([
     {
@@ -148,7 +146,7 @@ function addEmpl() {
       type: "input"
     },
     {
-      message: "Enter role ID number of new employee: ",
+      message: "Enter role of new employee: ",
       name: "role_id",
       type: "list",
       choices: [
@@ -175,88 +173,85 @@ function addEmpl() {
   })
 }
 
+// Remove employee
+function removeEmpl() {
+  var query = "SELECT first_name, last_name, title, dept_name, salary FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id;";
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+    console.log("");
+    console.table(res);
+  })
+
+  console.log("Enter name of employee for removal: ")
+  inquirer.prompt([
+    {
+      message: "Employee's first name: ",
+      name: "first_name",
+      type: "input",
+    },
+    {
+      message: "Employee's last name: ",
+      name: "last_name",
+      type: "input",
+    }
+  ]).then(function (res) {
+    connection.query(`DELETE FROM employees WHERE first_name="${res.first_name}" AND last_name="${res.last_name}"`, function (err, res) {
+      if (err) throw err;
+      console.log("");
+      console.log("******************************");
+      console.log("Employee Successfully Removed!");
+      console.log("******************************");
+      console.log("");
+      runSearch();
+    });
+  })
+}
 
 
+function updateEmplRole() {
+  var query = "SELECT first_name, last_name, title, dept_name, salary FROM employees INNER JOIN roles ON employees.role_id = roles.id INNER JOIN departments ON roles.department_id = departments.id;";
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+    console.log("");
+    console.table(res);
+  })
 
-// var query = "SELECT title, salary, name FROM roles LEFT JOIN departments ON roles.department_id = departments.id;";
-//   connection.query(query, function (err, res) {
-//     if (err) throw err;
-//     console.log("");
-//     console.table(res);
-//     runSearch();
-//   });
-// }
-
-// Update Role of an Employee
-// function updateEmplRole() {
-//   var query = "INSERT INTO roles SET ?";
-//   inquirer
-//     .prompt([
-//       {
-//         message: "Enter title of new role: ",
-//         name: "title",
-//         type: "input"
-//       },
-//       {
-//         message: "Enter annual salary of this role: ",
-//         name: "salary",
-//         type: "input"
-
-//       },
-//       {
-//         message: "Enter department ID number this role belongs in: ",
-//         name: "department_id",
-//         type: "input",
-//       }
-//     ]).then(function (res) {
-//       connection.query(query, res, function (err, res) {
-//         if (err) throw err;
-//         console.log("");
-//         console.log("****************************");
-//         console.log("New Role Successfully Saved!");
-//         console.log("****************************");
-//         console.log("");
-//         runSearch();
-//       });
-//     })
-// }
-
-
-
-// Add a New Role
-// function addRole() {
-//   
-
-// Add a New Department
-// function addDept() {
-//   var query = "INSERT INTO departments (name) VALUES (?)";
-//   inquirer
-//     .prompt([
-//       {
-//         message: "Enter name of new department: ",
-//         name: "name",
-//         type: "input"
-//       }
-//     ]).then(function (res) {
-//       connection.query(query, [res.name], function (err, res) {
-//         if (err) throw err;
-//         console.log("");
-//         console.log("**********************************");
-//         console.log("New Department Successfully Saved!");
-//         console.log("**********************************");
-//         console.log("");
-//         runSearch();
-//       });
-//     })
-// }
-
-// View All Roles
-// function viewRoles() {
-//   var query = " SELECT title, salary, name FROM roles LEFT JOIN departments ON roles.department_id = departments.id;";
-//   connection.query(query, function (err, res) {
-//     if (err) throw err;
-//     console.log("");
-//     console.table(res);
-//     runSearch();
-//   });
-// }
+  console.log("Enter name of employee to update role: ")
+  inquirer.prompt([
+    {
+      message: "Employee's first name: ",
+      name: "first_name",
+      type: "input",
+    },
+    {
+      message: "Employee's last name: ",
+      name: "last_name",
+      type: "input",
+    },
+    {
+      message: "Enter new role of employee: ",
+      name: "role_id",
+      type: "list",
+      choices: [
+        "Sales Associate",
+        "Sales Asst Manager",
+        "IT Help Desk",
+        "IT Manager/Business Partner",
+        "Accountant",
+        "Accting Manager/Business Partner"
+      ]
+    }
+  ]).then(function (res) {
+    connection.query(`SELECT id FROM roles WHERE title = "${res.role_id}"`, function (err, res2) {
+      connection.query(`UPDATE employees SET role_id="${res2[0].id}" WHERE first_name="${res.first_name}" AND last_name="${res.last_name}"`, function (err, res) {
+        if (err) throw err;
+        console.log("");
+        console.log("**********************************");
+        console.log("Employee Role Successfully Updated!");
+        console.log("**********************************");
+        console.log("")
+        runSearch();
+      });
+    });
+  })
+}

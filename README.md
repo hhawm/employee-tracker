@@ -23,4 +23,4 @@ So that I can organize and plan my business
 
 ## Screen Shot
 
-![Getting Started](notetaker_screenshot.png)
+![Getting Started](tracker_screenshot.png)
