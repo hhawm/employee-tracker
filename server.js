@@ -162,11 +162,13 @@ function addEmpl() {
     connection.query(`SELECT id FROM roles WHERE title = "${res.role_id}"`, function (err, res2) {
       connection.query(`INSERT INTO employees (first_name, last_name, role_id) VALUES ("${res.first_name}", "${res.last_name}", ${res2[0].id})`, function (err, res) {
         if (err) throw err;
-        console.log("");
-        console.log("********************************");
-        console.log("New Employee Successfully Saved!");
-        console.log("********************************");
-        console.log("");
+        console.log(`
+
+        ********************************
+        New Employee Successfully Saved!
+        ********************************
+      
+        `);
         runSearch();
       });
     })
@@ -180,32 +182,35 @@ function removeEmpl() {
     if (err) throw err;
     console.log("");
     console.table(res);
-  })
+    console.log("Enter name of employee for removal: ")
+    inquirer.prompt([
+      {
+        message: "Employee's first name: ",
+        name: "first_name",
+        type: "input",
+      },
+      {
+        message: "Employee's last name: ",
+        name: "last_name",
+        type: "input",
 
-  console.log("Enter name of employee for removal: ")
-  inquirer.prompt([
-    {
-      message: "Employee's first name: ",
-      name: "first_name",
-      type: "input",
-    },
-    {
-      message: "Employee's last name: ",
-      name: "last_name",
-      type: "input",
-    }
-  ]).then(function (res) {
-    connection.query(`DELETE FROM employees WHERE first_name="${res.first_name}" AND last_name="${res.last_name}"`, function (err, res) {
-      if (err) throw err;
-      console.log("");
-      console.log("******************************");
-      console.log("Employee Successfully Removed!");
-      console.log("******************************");
-      console.log("");
-      runSearch();
+      }
+    ]).then(function (res) {
+      connection.query(`DELETE FROM employees WHERE first_name="${res.first_name}" AND last_name="${res.last_name}"`, function (err, res) {
+        if (err) throw err;
+        console.log(`
+    
+      ******************************
+      Employee Successfully Removed!
+      ******************************
+    
+      `);
+        runSearch();
+      });
     });
   })
 }
+
 
 
 function updateEmplRole() {
@@ -214,44 +219,45 @@ function updateEmplRole() {
     if (err) throw err;
     console.log("");
     console.table(res);
-  })
+    console.log("Enter name of employee to update role: ")
+    inquirer.prompt([
+      {
+        message: "Employee's first name: ",
+        name: "first_name",
+        type: "input",
+      },
+      {
+        message: "Employee's last name: ",
+        name: "last_name",
+        type: "input",
+      },
+      {
+        message: "Enter new role of employee: ",
+        name: "role_id",
+        type: "list",
+        choices: [
+          "Sales Associate",
+          "Sales Asst Manager",
+          "IT Help Desk",
+          "IT Manager/Business Partner",
+          "Accountant",
+          "Accting Manager/Business Partner"
+        ]
+      }
+    ]).then(function (res) {
+      connection.query(`SELECT id FROM roles WHERE title = "${res.role_id}"`, function (err, res2) {
+        connection.query(`UPDATE employees SET role_id="${res2[0].id}" WHERE first_name="${res.first_name}" AND last_name="${res.last_name}"`, function (err, res) {
+          if (err) throw err;
+          console.log(`
 
-  console.log("Enter name of employee to update role: ")
-  inquirer.prompt([
-    {
-      message: "Employee's first name: ",
-      name: "first_name",
-      type: "input",
-    },
-    {
-      message: "Employee's last name: ",
-      name: "last_name",
-      type: "input",
-    },
-    {
-      message: "Enter new role of employee: ",
-      name: "role_id",
-      type: "list",
-      choices: [
-        "Sales Associate",
-        "Sales Asst Manager",
-        "IT Help Desk",
-        "IT Manager/Business Partner",
-        "Accountant",
-        "Accting Manager/Business Partner"
-      ]
-    }
-  ]).then(function (res) {
-    connection.query(`SELECT id FROM roles WHERE title = "${res.role_id}"`, function (err, res2) {
-      connection.query(`UPDATE employees SET role_id="${res2[0].id}" WHERE first_name="${res.first_name}" AND last_name="${res.last_name}"`, function (err, res) {
-        if (err) throw err;
-        console.log("");
-        console.log("**********************************");
-        console.log("Employee Role Successfully Updated!");
-        console.log("**********************************");
-        console.log("")
-        runSearch();
+          ***********************************
+          Employee Role Successfully Updated!
+          ***********************************
+        
+          `);
+          runSearch();
+        });
       });
-    });
+    })
   })
 }
