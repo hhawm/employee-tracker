@@ -1,7 +1,7 @@
 USE emp_trackerDB;
 
 -- Departments Table
-INSERT INTO department
+INSERT INTO departments
     (name)
 VALUES
     ("Sales"),
@@ -9,7 +9,7 @@ VALUES
     ("Accounting");
 
 -- Roles Table
-INSERT INTO role
+INSERT INTO roles
     (title, salary, department_id)
 VALUES
     ("Sales Associate", 45000, 1),
@@ -20,7 +20,7 @@ VALUES
     ("Accounting Manager", 90000, 3);
 
 -- Employees Table
-INSERT INTO employee
+INSERT INTO employees
     (first_name, last_name, role_id, manager_id)
 VALUES
     ("Rosamond", "Leanna", 1, 7),
@@ -39,8 +39,8 @@ VALUES
     ("Colin", "Clancy", 5, 13),
     ("Kyrie", "Nicholas", 6, null);
 
--- SELECT * FROM department;
+-- SELECT * FROM departments;
 
--- SELECT * FROM role;
+-- SELECT * FROM roles;
 
--- SELECT * FROM employee;
+-- SELECT * FROM employees;

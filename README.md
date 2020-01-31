@@ -13,7 +13,7 @@
 
 ## User Story
 
-We can frame this challenge as follows:
+Framed this challenge as follows:
 
 ```
 As a business owner
